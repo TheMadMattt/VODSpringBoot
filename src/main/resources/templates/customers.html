@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Użytkownicy</title>
+	<style>
+	    input[type=button], input[type=submit], input[type=reset] {
+		background-color: white; /* Green */
+		border: 2px solid #4CAF50;
+		color: black;
+		padding: 16px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		-webkit-transition-duration: 0.4s; /* Safari */
+		transition-duration: 0.4s;
+		cursor: pointer;
+	    }
+	    input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+		background-color: #4CAF50;
+		color: white;
+	    }
+	    .button {
+		background-color: #4CAF50;
+		border: none;
+		color: white;
+		padding: 5px 5px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+	    }
+	    table, td, th {
+		border: 1px solid black;
+	    }
+	    .text-example {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		width: 100%;
+		text-align: center;
+		margin: 10% 0;
+		min-height: 200px;
+		align-items: center;
+	    }
+	</style>
+    </head>
+    <body>
+	<div class="text-example">
+	<br/>
+	<span th:if="${customers.empty}">
+	    Brak użytkowników do aktywowania.
+	</span>
+	<span th:if="${param.deleted}">
+            Użytkownik został usunięty z bazy danych.
+        </span>
+	<span th:if="${param.errorDelete}">
+            Użytkownik nie został znaleziony w bazie danych.
+        </span>
+        <table th:if="${!customers.empty}">
+	    <thead>
+		<tr>
+		    <th> No. </th>
+		    <th> Login </th>
+		    <th> E-mail </th>
+		    <th> Status </th>
+		</tr>
+	    </thead>
+	    <tbody>
+		<tr th:each="customer : ${customers}">
+		    <td><span th:text="${customers.indexOf(customer) + 1}"> No. </span></td>
+		    <td><span th:text="${customer.login}"> Login </span></td>
+		    <td><span th:text="${customer.email}"> E-mail </span></td>
+		    <td><span th:text="${customer.userStatus}"> Status </span></td>
+		    <td>
+			<a href="#" class="button" th:href="@{/admin/customers/deleteCustomer/} + ${customer.id}">Delete</a>
+		    </td>
+		</tr>
+	    </tbody>
+        </table>
+
+	<p></p>
+	<input type="button" onclick="location.href = '/home'" value="Powrót do panelu"/>
+	</div>
+    </body>
+</html>

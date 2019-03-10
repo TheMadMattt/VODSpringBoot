@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Rejestracja</title>
+	<style>
+	    input[type=button], input[type=submit], input[type=reset] {
+		background-color: white; /* Green */
+		border: 2px solid #4CAF50;
+		color: black;
+		padding: 16px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		-webkit-transition-duration: 0.4s; /* Safari */
+		transition-duration: 0.4s;
+		cursor: pointer;
+	    }
+	    input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+		background-color: #4CAF50;
+		color: white;
+	    }
+	    input[type=text], input[type=date], input[type=number], input[type=email], input[type=password] {
+		width: 80%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		box-sizing: border-box;
+		border: 3px solid #ccc;
+		-webkit-transition: 0.5s;
+		transition: 0.5s;
+		outline: none;
+	    }
+	    input[type=text]:focus, input[type=date]:focus, input[type=number]:focus, input[type=email]:focus, input[type=password]:focus {
+		border: 3px solid #555;
+	    }
+	    .text-example {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		width: 100%;
+		text-align: center;
+		margin: 10% 0;
+		min-height: 200px;
+		align-items: center;
+	    }
+	    p {
+		margin: 0;
+		padding: 0;
+	    }
+	</style>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+	<div class="text-example">
+	    <div th:if="${param.error}">
+		Login lub email już jest zajęte.
+	    </div>
+
+	    <h1>Rejestracja</h1>
+	    <form th:action="@{/register}" th:object="${customer}" method="post">
+		<p>Login: <input type="text" th:field="*{login}" /></p>
+		<p>Hasło: <input type="password" th:field="*{password}" /></p>
+		<p>E-mail: <input type="email" th:field="*{email}" /></p>
+		<p><input type="submit" value="Utwórz konto" /><input type="reset" value="Wyczyść" /></p>
+	    </form>
+	    <p><input type="button" onclick="location.href = '/home'" value="Powrót do panelu"/></p>
+	</div>
+    </body>
+</html>

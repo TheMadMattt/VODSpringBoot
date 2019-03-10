@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Dodaj Film</title>
+	<style>
+	    input[type=button], input[type=submit], input[type=reset] {
+		background-color: white; /* Green */
+		border: 2px solid #4CAF50;
+		color: black;
+		padding: 16px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		-webkit-transition-duration: 0.4s; /* Safari */
+		transition-duration: 0.4s;
+		cursor: pointer;
+	    }
+	    input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+		background-color: #4CAF50;
+		color: white;
+	    }
+	    input[type=text], input[type=date], input[type=number], input[type=email], select {
+		width: 80%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		box-sizing: border-box;
+		border: 3px solid #ccc;
+		-webkit-transition: 0.5s;
+		transition: 0.5s;
+		outline: none;
+	    }
+	    input[type=text]:focus, input[type=date]:focus, input[type=number]:focus, input[type=email]:focus, select:focus {
+		border: 3px solid #555;
+	    }
+	    .text-example {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		width: 100%;
+		text-align: center;
+		align-items: center;
+	    }
+	    p {
+		margin: 0;
+		padding: 0;
+	    }
+	</style>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+	<div class="text-example">
+	    <div th:if="${param.error}">
+		Podany film już istnieje.
+	    </div>
+
+	    <h1>Dodawanie filmu</h1>
+	    <form action="#" th:action="@{/admin/movies/new}" th:object="${movie}" method="post">
+		<p>Tytuł:</p>
+		<p><input type="text" th:field="*{title}" /></p>
+		<p>Reżyser:</p>
+		<p><input type="text" th:field="*{director}" /></p>
+		<p>Data produkcji:</p>
+		<p><input type="date" th:field="*{makeDate}" /></p>
+		<p>Gatunek:</p>
+		<p><select th:field = "*{genre}">
+			<option th:each="genre : ${T(com.iodb.vod.app.model.MovieModel.GenreEnum).values()}"
+				th:value="${genre}"
+				th:text="${genre}">
+			</option>
+		    </select>
+		</p>
+		<p>Długość filmu:</p>
+		<p><input type="number" th:field="*{runTime}" /></p>
+		<p>Opis filmu:</p>
+		<p><input type="text" th:field="*{description}" /></p>
+		<p>Cena:</p>
+		<p><input type="number" th:field="*{price}" /></p>
+		<p>Ścieżka do filmu:</p>
+		<p><input type="text" th:field="*{fileName}" /></p>		
+		<p><input type="submit" value="Dodaj film" /> <input type="reset" value="Wyczyść" /></p>
+		<input type="button" onclick="location.href = '/home'" value="Powrót do panelu"/>
+	    </form>
+	</div>
+    </body>
+</html>
